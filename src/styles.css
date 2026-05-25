@@ -94,6 +94,56 @@
   --shadow-glow: 0 10px 40px -10px oklch(0.65 0.22 290 / 0.55);
 }
 
+.light {
+  /* Soft white background, modern SaaS light */
+  --background: oklch(0.995 0.003 250);
+  --foreground: oklch(0.2 0.03 265);
+
+  --surface: oklch(0.98 0.005 250);
+  --surface-muted: oklch(0.96 0.008 250);
+
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.2 0.03 265);
+
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.2 0.03 265);
+
+  --primary: oklch(0.58 0.22 290);
+  --primary-foreground: oklch(0.99 0 0);
+  --primary-glow: oklch(0.7 0.18 295);
+
+  --mint: oklch(0.78 0.17 165);
+
+  --secondary: oklch(0.96 0.01 260);
+  --secondary-foreground: oklch(0.22 0.03 265);
+
+  --muted: oklch(0.96 0.008 250);
+  --muted-foreground: oklch(0.5 0.02 260);
+
+  --accent: oklch(0.94 0.04 285);
+  --accent-foreground: oklch(0.25 0.08 290);
+
+  --border: oklch(0.92 0.008 250);
+  --input: oklch(0.92 0.008 250);
+  --ring: oklch(0.58 0.22 290);
+
+  --gradient-hero: radial-gradient(1200px 600px at 50% -10%, oklch(0.85 0.13 290 / 0.55), transparent 60%),
+                   radial-gradient(800px 400px at 90% 10%, oklch(0.9 0.12 175 / 0.35), transparent 60%),
+                   radial-gradient(700px 500px at 10% 30%, oklch(0.88 0.1 280 / 0.35), transparent 60%),
+                   linear-gradient(180deg, oklch(0.995 0.003 250), oklch(0.985 0.005 250));
+  --gradient-soft: linear-gradient(180deg, oklch(0.96 0.04 285 / 0.7), oklch(0.95 0.03 230 / 0.4));
+
+  --shadow-soft: 0 1px 2px oklch(0.2 0.05 265 / 0.04), 0 8px 24px -8px oklch(0.2 0.05 265 / 0.08);
+  --shadow-card: 0 1px 3px oklch(0.2 0.05 265 / 0.05), 0 20px 40px -20px oklch(0.2 0.05 265 / 0.15);
+  --shadow-glow: 0 10px 40px -10px oklch(0.58 0.22 290 / 0.4);
+}
+
+.light .grid-bg {
+  background-image:
+    linear-gradient(to right, oklch(0.5 0.05 265 / 0.07) 1px, transparent 1px),
+    linear-gradient(to bottom, oklch(0.5 0.05 265 / 0.07) 1px, transparent 1px);
+}
+
 @layer base {
   * { border-color: var(--color-border); }
   html { scroll-behavior: smooth; }

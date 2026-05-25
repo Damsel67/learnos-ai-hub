@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { LogoMark } from "./Logo";
+import { ThemeToggle } from "./ThemeToggle";
 
 export function Navbar() {
   const links = [
@@ -25,6 +26,7 @@ export function Navbar() {
           ))}
         </nav>
         <div className="flex items-center gap-2">
+          <ThemeToggle />
           <Button variant="ghost" className="hidden md:inline-flex" size="sm">Sign in</Button>
           <Button size="sm" className="bg-gradient-primary text-primary-foreground shadow-soft hover:opacity-95">
             Get Started
