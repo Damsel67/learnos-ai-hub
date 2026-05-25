@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { GraduationCap } from "lucide-react";
+import { LogoMark } from "./Logo";
 
 export function Navbar() {
   const links = [
@@ -12,8 +12,8 @@ export function Navbar() {
     <header className="sticky top-0 z-50 w-full border-b border-border/60 bg-background/70 backdrop-blur-xl">
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-6">
         <a href="#" className="flex items-center gap-2">
-          <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-primary shadow-glow">
-            <GraduationCap className="h-4 w-4 text-primary-foreground" />
+          <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-primary shadow-glow ring-1 ring-white/10">
+            <LogoMark className="h-4 w-4" />
           </span>
           <span className="text-lg font-semibold tracking-tight">LearnOS</span>
         </a>

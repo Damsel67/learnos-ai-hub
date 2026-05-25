@@ -1,4 +1,5 @@
-import { GraduationCap, Twitter, Github, Linkedin } from "lucide-react";
+import { Twitter, Github, Linkedin } from "lucide-react";
+import { LogoMark } from "./Logo";
 
 export function Footer() {
   const cols = [
@@ -12,8 +13,8 @@ export function Footer() {
         <div className="grid gap-10 md:grid-cols-5">
           <div className="md:col-span-2">
             <a href="#" className="flex items-center gap-2">
-              <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-primary shadow-glow">
-                <GraduationCap className="h-4 w-4 text-primary-foreground" />
+              <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-primary shadow-glow ring-1 ring-white/10">
+                <LogoMark className="h-4 w-4" />
               </span>
               <span className="text-lg font-semibold">LearnOS</span>
             </a>
