@@ -180,3 +180,22 @@
     mask-image: radial-gradient(ellipse 60% 50% at 50% 0%, black, transparent 70%);
   }
 }
+
+@keyframes float-slow {
+  0%, 100% { transform: translate3d(0, 0, 0); }
+  50% { transform: translate3d(0, -24px, 0); }
+}
+
+@keyframes float-slower {
+  0%, 100% { transform: translate3d(0, 0, 0); }
+  50% { transform: translate3d(0, 28px, 0); }
+}
+
+@utility animate-float-slow {
+  animation: float-slow 12s ease-in-out infinite;
+}
+
+@utility animate-float-slower {
+  animation: float-slower 16s ease-in-out infinite;
+}
+

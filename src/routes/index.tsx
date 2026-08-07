@@ -1,9 +1,14 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { Navbar } from "@/components/landing/Navbar";
 import { Hero } from "@/components/landing/Hero";
-import { Features } from "@/components/landing/Features";
+import { PlatformGrid } from "@/components/landing/PlatformGrid";
+import { Roles } from "@/components/landing/Roles";
+import { AIFeatures } from "@/components/landing/AIFeatures";
 import { HowItWorks } from "@/components/landing/HowItWorks";
-import { DashboardPreview } from "@/components/landing/DashboardPreview";
+import { Stats } from "@/components/landing/Stats";
+import { Comparison } from "@/components/landing/Comparison";
+import { Testimonials } from "@/components/landing/Testimonials";
+import { FAQ } from "@/components/landing/FAQ";
 import { CTA } from "@/components/landing/CTA";
 import { Footer } from "@/components/landing/Footer";
 
@@ -11,10 +16,18 @@ export const Route = createFileRoute("/")({
   component: Index,
   head: () => ({
     meta: [
-      { title: "LearnOS — The Smart Learning Operating System" },
-      { name: "description", content: "AI-powered tutoring, live sessions, and academic intelligence for modern education. Live virtual classrooms, smart scheduling, parent tracking and gamified learning." },
-      { property: "og:title", content: "LearnOS — The Smart Learning Operating System" },
-      { property: "og:description", content: "AI-powered tutoring, live sessions, and academic intelligence for modern education." },
+      { title: "LearnOS — The AI Operating System for Education" },
+      {
+        name: "description",
+        content:
+          "LearnOS unifies live classrooms, AI classroom intelligence, course management, assessments, parent portals and analytics for schools and tutoring companies.",
+      },
+      { property: "og:title", content: "LearnOS — The AI Operating System for Education" },
+      {
+        property: "og:description",
+        content:
+          "Live classrooms, AI monitoring, assessments, automation and analytics — one enterprise platform for every role in education.",
+      },
     ],
   }),
 });
@@ -25,9 +38,14 @@ function Index() {
       <Navbar />
       <main>
         <Hero />
-        <Features />
+        <PlatformGrid />
+        <Roles />
+        <AIFeatures />
         <HowItWorks />
-        <DashboardPreview />
+        <Stats />
+        <Comparison />
+        <Testimonials />
+        <FAQ />
         <CTA />
       </main>
       <Footer />
