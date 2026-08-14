@@ -2,11 +2,13 @@ import { Twitter, Github, Linkedin } from "lucide-react";
 import { LogoMark } from "./Logo";
 
 const cols = [
-  { title: "Products", links: ["Learning Platform", "AI Classroom", "Courses", "Assessments", "Communication", "Automation", "Analytics"] },
-  { title: "Company", links: ["About", "Blog", "Roadmap", "Careers", "Contact"] },
-  { title: "Resources", links: ["Documentation", "API", "Help Center", "Community", "Status"] },
-  { title: "Legal", links: ["Privacy", "Terms", "Cookies", "Security"] },
+  { title: "Product", links: ["Platform", "Live Classrooms", "Courses", "Assessments", "Communication", "AI Classroom", "Analytics"] },
+  { title: "Solutions", links: ["Schools", "Tutoring Companies", "Universities", "Corporate Training"] },
+  { title: "Resources", links: ["Documentation", "API", "Help Center", "Blog", "Community", "Status"] },
+  { title: "Company", links: ["About", "Careers", "Contact", "Roadmap"] },
+  { title: "Legal", links: ["Terms", "Privacy", "Security", "Cookies"] },
 ];
+
 
 export function Footer() {
   return (

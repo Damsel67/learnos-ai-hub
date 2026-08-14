@@ -24,10 +24,11 @@ export function AIFeatures() {
       <div className="relative mx-auto max-w-7xl px-6">
         <SectionHeading
           eyebrow="AI Features"
-          title="An AI layer across"
-          accent="every workflow"
+          title="AI That Works"
+          accent="Behind Every Lesson"
           subtitle="LearnOS AI works quietly in the background — planning, grading, reporting and predicting."
         />
+
 
         <div className="mt-16 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
           {features.map((f, i) => (
