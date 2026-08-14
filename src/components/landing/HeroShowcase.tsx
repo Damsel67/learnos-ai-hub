@@ -3,11 +3,12 @@ import { useEffect, useState } from "react";
 import { CheckCircle2, Mic, MonitorPlay, Hand, Users, TrendingUp, Radio } from "lucide-react";
 
 const aiCards = [
-  "AI detected learner distraction",
-  "Attendance completed automatically",
+  "AI detected low learner engagement",
+  "Attendance recorded automatically",
   "Homework generated",
   "Parent notified",
-  "Quiz graded automatically",
+  "Quiz graded instantly",
+  "Weekly report created",
 ];
 
 const positions = [
@@ -16,7 +17,9 @@ const positions = [
   "left-4 bottom-10",
   "right-2 bottom-24",
   "left-1/2 -top-6 -translate-x-1/2",
+  "left-1/2 -bottom-8 -translate-x-1/2",
 ];
+
 
 export function HeroShowcase() {
   const reduce = useReducedMotion();
@@ -46,7 +49,7 @@ export function HeroShowcase() {
         <div className="flex items-end justify-center">
           {/* Student */}
           <Panel
-            className="hidden w-[30%] -mr-10 rotate-[-6deg] md:block"
+            className="hidden w-[26%] -mr-8 rotate-[-8deg] md:block"
             delay={0.1}
             title="Student Dashboard"
           >
@@ -54,19 +57,29 @@ export function HeroShowcase() {
           </Panel>
 
           {/* Live classroom */}
-          <Panel className="relative z-20 w-full md:w-[46%]" delay={0} title="Live Classroom" featured>
+          <Panel className="relative z-20 w-full md:w-[40%]" delay={0} title="Live Classroom" featured>
             <ClassroomPanel />
+          </Panel>
+
+          {/* Tutor */}
+          <Panel
+            className="hidden w-[26%] -ml-8 rotate-[6deg] md:block"
+            delay={0.2}
+            title="Tutor Dashboard"
+          >
+            <TutorPanel />
           </Panel>
 
           {/* Admin */}
           <Panel
-            className="hidden w-[30%] -ml-10 rotate-[6deg] md:block"
-            delay={0.2}
+            className="hidden w-[24%] -ml-6 rotate-[10deg] lg:block"
+            delay={0.3}
             title="Admin Dashboard"
           >
             <AdminPanel />
           </Panel>
         </div>
+
       </motion.div>
 
       <div className="pointer-events-none absolute inset-0 hidden lg:block">
@@ -200,6 +213,33 @@ function ClassroomPanel() {
     </div>
   );
 }
+
+function TutorPanel() {
+  return (
+    <div className="space-y-2.5">
+      <div className="grid grid-cols-2 gap-1.5">
+        {[
+          { l: "Classes", v: "5 today" },
+          { l: "Focus", v: "92%" },
+        ].map((s) => (
+          <div key={s.l} className="rounded-lg border border-border bg-card/60 p-1.5">
+            <div className="text-[9px] uppercase text-muted-foreground">{s.l}</div>
+            <div className="text-xs font-semibold">{s.v}</div>
+          </div>
+        ))}
+      </div>
+      <div className="rounded-lg border border-border bg-card/60 p-2 text-[10px] text-muted-foreground">
+        Grading queue · <span className="text-foreground">AI graded 24</span>
+      </div>
+      <div className="flex h-10 items-end gap-1">
+        {[40, 62, 55, 78, 68, 85, 92].map((h, i) => (
+          <div key={i} className="flex-1 rounded-sm bg-gradient-primary opacity-80" style={{ height: `${h}%` }} />
+        ))}
+      </div>
+    </div>
+  );
+}
+
 
 function AdminPanel() {
   return (

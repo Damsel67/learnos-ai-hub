@@ -4,14 +4,15 @@ import { SectionHeading } from "./Reveal";
 
 const features = [
   "AI creates lesson plans",
-  "AI marks quizzes",
+  "AI grades quizzes",
   "AI writes reports",
-  "AI summarizes sessions",
+  "AI summarizes live sessions",
   "AI identifies struggling learners",
   "AI recommends homework",
+  "AI sends parent updates",
   "AI predicts learner performance",
-  "AI writes parent updates",
 ];
+
 
 export function AIFeatures() {
   const reduce = useReducedMotion();
@@ -23,10 +24,11 @@ export function AIFeatures() {
       <div className="relative mx-auto max-w-7xl px-6">
         <SectionHeading
           eyebrow="AI Features"
-          title="An AI layer across"
-          accent="every workflow"
+          title="AI That Works"
+          accent="Behind Every Lesson"
           subtitle="LearnOS AI works quietly in the background — planning, grading, reporting and predicting."
         />
+
 
         <div className="mt-16 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
           {features.map((f, i) => (
