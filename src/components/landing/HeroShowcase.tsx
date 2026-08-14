@@ -49,7 +49,7 @@ export function HeroShowcase() {
         <div className="flex items-end justify-center">
           {/* Student */}
           <Panel
-            className="hidden w-[30%] -mr-10 rotate-[-6deg] md:block"
+            className="hidden w-[26%] -mr-8 rotate-[-8deg] md:block"
             delay={0.1}
             title="Student Dashboard"
           >
@@ -57,19 +57,29 @@ export function HeroShowcase() {
           </Panel>
 
           {/* Live classroom */}
-          <Panel className="relative z-20 w-full md:w-[46%]" delay={0} title="Live Classroom" featured>
+          <Panel className="relative z-20 w-full md:w-[40%]" delay={0} title="Live Classroom" featured>
             <ClassroomPanel />
+          </Panel>
+
+          {/* Tutor */}
+          <Panel
+            className="hidden w-[26%] -ml-8 rotate-[6deg] md:block"
+            delay={0.2}
+            title="Tutor Dashboard"
+          >
+            <TutorPanel />
           </Panel>
 
           {/* Admin */}
           <Panel
-            className="hidden w-[30%] -ml-10 rotate-[6deg] md:block"
-            delay={0.2}
+            className="hidden w-[24%] -ml-6 rotate-[10deg] lg:block"
+            delay={0.3}
             title="Admin Dashboard"
           >
             <AdminPanel />
           </Panel>
         </div>
+
       </motion.div>
 
       <div className="pointer-events-none absolute inset-0 hidden lg:block">
