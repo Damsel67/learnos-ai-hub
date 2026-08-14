@@ -14,8 +14,9 @@ export function Footer() {
   return (
     <footer className="border-t border-border bg-surface/60 backdrop-blur-xl">
       <div className="mx-auto max-w-7xl px-6 py-20">
-        <div className="grid gap-12 md:grid-cols-6">
-          <div className="md:col-span-2">
+        <div className="grid gap-12 md:grid-cols-3 lg:grid-cols-7">
+          <div className="md:col-span-3 lg:col-span-2">
+
             <a href="#" className="flex items-center gap-2">
               <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-primary shadow-glow ring-1 ring-border">
                 <LogoMark className="h-4 w-4" />
