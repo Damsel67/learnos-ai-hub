@@ -3,11 +3,12 @@ import { useEffect, useState } from "react";
 import { CheckCircle2, Mic, MonitorPlay, Hand, Users, TrendingUp, Radio } from "lucide-react";
 
 const aiCards = [
-  "AI detected learner distraction",
-  "Attendance completed automatically",
+  "AI detected low learner engagement",
+  "Attendance recorded automatically",
   "Homework generated",
   "Parent notified",
-  "Quiz graded automatically",
+  "Quiz graded instantly",
+  "Weekly report created",
 ];
 
 const positions = [
@@ -16,7 +17,9 @@ const positions = [
   "left-4 bottom-10",
   "right-2 bottom-24",
   "left-1/2 -top-6 -translate-x-1/2",
+  "left-1/2 -bottom-8 -translate-x-1/2",
 ];
+
 
 export function HeroShowcase() {
   const reduce = useReducedMotion();
