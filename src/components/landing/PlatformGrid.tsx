@@ -4,15 +4,15 @@ import {
 import { Reveal, SectionHeading } from "./Reveal";
 
 const groups = [
-  { icon: Video, title: "Live Classrooms", items: ["HD Video", "Interactive Whiteboard", "Breakout Rooms", "Raise Hand", "Polls", "Screen Sharing", "Recording"] },
-  { icon: Brain, title: "AI Classroom Intelligence", items: ["Face attention", "Participation score", "Emotion trends", "Speaking time", "Automatic attendance", "Behaviour analytics", "Learning insights"] },
-  { icon: BookOpen, title: "Learning Management", items: ["Courses", "Modules", "Lessons", "Assignments", "Resources", "Certificates"] },
-  { icon: ClipboardCheck, title: "Assessment Engine", items: ["Quiz Builder", "Question Bank", "AI Question Generator", "Auto Grading", "Timed Exams", "Rubrics", "Analytics"] },
-  { icon: MessagesSquare, title: "Communication Hub", items: ["Chat", "Announcements", "Email", "SMS", "WhatsApp Integration", "Push Notifications", "Discussion Boards"] },
-  { icon: CalendarClock, title: "Smart Scheduling", items: ["Calendar", "Recurring Sessions", "Tutor Matching", "Timezone Detection", "Conflict Detection", "Reminders"] },
+  { icon: Brain, title: "AI Classroom Intelligence", items: ["Face attention tracking", "Participation analytics", "Speaking time", "Engagement score", "Emotion trends", "Automatic attendance"] },
+  { icon: Video, title: "Live Interactive Classrooms", items: ["HD Video", "Interactive Whiteboard", "Screen Sharing", "Polls", "Breakout Rooms", "Session Recording"] },
+  { icon: BookOpen, title: "Course Management", items: ["Courses", "Modules", "Lessons", "Assignments", "Learning Resources", "Certificates"] },
+  { icon: ClipboardCheck, title: "Assessment Engine", items: ["Quiz Builder", "AI Question Generator", "Auto Grading", "Exams", "Rubrics", "Analytics"] },
+  { icon: MessagesSquare, title: "Communication Hub", items: ["Chat", "Announcements", "Parent Messaging", "Email", "SMS", "WhatsApp Integration"] },
+  { icon: CalendarClock, title: "Smart Scheduling", items: ["Calendar", "Tutor Matching", "Timezone Detection", "Conflict Detection", "Recurring Sessions", "Automated Reminders"] },
   { icon: Users2, title: "Parent Portal", items: ["Progress Reports", "Attendance", "Homework", "Payments", "Messages", "Session Recordings"] },
-  { icon: Settings2, title: "Admin Console", items: ["User Management", "Role Permissions", "Reports", "Finance", "Audit Logs", "System Settings", "Automation Rules"] },
-  { icon: BarChart3, title: "Analytics", items: ["Student Performance", "Tutor Performance", "Attendance Trends", "Revenue", "Engagement", "Growth Metrics", "Export Reports"] },
+  { icon: Settings2, title: "Admin Console", items: ["User Management", "Role Permissions", "Reports", "Finance", "Audit Logs", "System Settings"] },
+  { icon: BarChart3, title: "Analytics", items: ["Student Performance", "Tutor Performance", "Revenue", "Attendance", "Engagement", "Growth Reports"] },
 ];
 
 export function PlatformGrid() {
@@ -21,10 +21,11 @@ export function PlatformGrid() {
       <div className="mx-auto max-w-7xl px-6">
         <SectionHeading
           eyebrow="Platform"
-          title="Everything in"
-          accent="One Platform"
+          title="Everything You Need to"
+          accent="Run Learning"
           subtitle="Nine deeply integrated products replacing the patchwork of tools schools use today."
         />
+
 
         <div className="mt-16 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
           {groups.map((g, i) => (
