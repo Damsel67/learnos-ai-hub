@@ -1,6 +1,6 @@
 import { motion, useReducedMotion } from "motion/react";
 import { useEffect, useState } from "react";
-import { CheckCircle2, Mic, MonitorPlay, Hand, Users, TrendingUp, Radio } from "lucide-react";
+import { CheckCircle2, Mic, MicOff, MonitorPlay, Hand, Users, BarChart3 } from "lucide-react";
 
 const aiCards = [
   "AI detected low learner engagement",
@@ -59,7 +59,9 @@ export function HeroShowcase() {
           {/* Live classroom */}
           <Panel className="relative z-20 w-full md:w-[40%]" delay={0} title="Live Classroom" featured>
             <ClassroomPanel />
+            <PrivateClassCard />
           </Panel>
+
 
           {/* Tutor */}
           <Panel
@@ -172,36 +174,104 @@ function StudentPanel() {
   );
 }
 
+function PersonAvatar({ seed, tone }: { seed: string; tone: "primary" | "mint" | "glow" }) {
+  const bg =
+    tone === "mint"
+      ? "bg-gradient-mint"
+      : tone === "glow"
+        ? "bg-gradient-soft"
+        : "bg-gradient-primary";
+  return (
+    <div className={`flex h-full w-full items-end justify-center ${bg}`}>
+      <svg viewBox="0 0 40 32" className="h-full w-auto opacity-90" aria-hidden>
+        <circle cx="20" cy="12" r="6.5" fill="var(--card)" opacity="0.92" />
+        <path d="M6 32c1.5-8 7.5-11.5 14-11.5S32.5 24 34 32z" fill="var(--card)" opacity="0.92" />
+        <title>{seed}</title>
+      </svg>
+    </div>
+  );
+}
+
+function Tile({
+  name,
+  tone,
+  muted,
+  host,
+  hand,
+}: {
+  name: string;
+  tone: "primary" | "mint" | "glow";
+  muted?: boolean;
+  host?: boolean;
+  hand?: boolean;
+}) {
+  return (
+    <div className="relative aspect-video overflow-hidden rounded-md border border-border/70">
+      <PersonAvatar seed={name} tone={tone} />
+      <span className="absolute inset-x-0 bottom-0 flex items-center justify-between bg-card/70 px-1 py-0.5 text-[7px] leading-none backdrop-blur-sm">
+        <span className="truncate">{host ? `${name} · Tutor` : name}</span>
+        {muted ? <MicOff className="h-2 w-2 text-destructive" /> : <Mic className="h-2 w-2 text-mint" />}
+      </span>
+      {hand && (
+        <span className="absolute right-0.5 top-0.5 rounded bg-card/80 px-0.5 text-[8px] leading-tight">
+          <Hand className="h-2 w-2 text-mint" />
+        </span>
+      )}
+    </div>
+  );
+}
+
 function ClassroomPanel() {
   return (
     <div className="space-y-3">
       <div className="flex items-center justify-between text-[11px]">
         <span className="flex items-center gap-1.5 text-destructive">
-          <Radio className="h-3 w-3" />
           <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-destructive" /> LIVE · Physics 101
         </span>
         <span className="flex items-center gap-1 text-muted-foreground">
-          <Users className="h-3 w-3" /> 28
+          <Users className="h-3 w-3" /> 6
         </span>
       </div>
-      <div className="grid grid-cols-4 gap-1.5">
-        {Array.from({ length: 12 }).map((_, i) => (
-          <div
-            key={i}
-            className="aspect-video rounded bg-gradient-primary"
-            style={{ opacity: 0.4 + ((i * 7) % 5) * 0.12 }}
-          />
-        ))}
+
+      <div className="flex items-center justify-between">
+        <span className="rounded-full bg-gradient-primary px-2 py-0.5 text-[9px] font-semibold uppercase tracking-wide text-primary-foreground">
+          Group Class
+        </span>
+        <span className="text-[9px] text-muted-foreground">1 tutor · 5 learners</span>
       </div>
+
+      <div className="grid grid-cols-3 gap-1.5">
+        <Tile name="Ms. Ada" tone="primary" host />
+        <Tile name="Liam" tone="glow" />
+        <Tile name="Zara" tone="mint" hand />
+        <Tile name="Noah" tone="glow" muted />
+        <Tile name="Ife" tone="primary" />
+        <Tile name="Mia" tone="mint" muted />
+      </div>
+
       <div className="rounded-lg border border-border bg-card/60 p-2">
-        <div className="mb-1.5 text-[10px] text-muted-foreground">Whiteboard</div>
+        <div className="mb-1.5 flex items-center justify-between text-[10px] text-muted-foreground">
+          <span>Interactive whiteboard</span>
+          <span className="text-mint">Newton's 2nd Law</span>
+        </div>
         <svg viewBox="0 0 200 40" className="h-10 w-full">
           <path d="M4 30 C40 4, 70 36, 110 14 S170 8, 196 24" fill="none" stroke="var(--mint)" strokeWidth="2" />
           <path d="M4 36 C50 26, 90 32, 196 30" fill="none" stroke="var(--primary-glow)" strokeWidth="1.5" opacity="0.7" />
         </svg>
       </div>
+
+      <div className="rounded-lg border border-border bg-card/60 p-2">
+        <div className="mb-1 flex items-center justify-between text-[9px] text-muted-foreground">
+          <span className="flex items-center gap-1"><BarChart3 className="h-2.5 w-2.5" /> Live poll · Which force wins?</span>
+          <span>82% answered</span>
+        </div>
+        <div className="h-1.5 overflow-hidden rounded-full bg-muted">
+          <div className="h-full w-[82%] bg-gradient-mint" />
+        </div>
+      </div>
+
       <div className="flex items-center justify-center gap-2">
-        {[Mic, MonitorPlay, Hand, TrendingUp].map((Icon, i) => (
+        {[Mic, MonitorPlay, Hand, BarChart3].map((Icon, i) => (
           <span
             key={i}
             className="flex h-7 w-7 items-center justify-center rounded-lg border border-border bg-card/70 text-muted-foreground"
@@ -213,6 +283,34 @@ function ClassroomPanel() {
     </div>
   );
 }
+
+function PrivateClassCard() {
+  return (
+    <div className="absolute -bottom-10 -right-6 z-30 hidden w-[62%] rounded-2xl border border-border/70 bg-card/80 p-2.5 shadow-card backdrop-blur-xl md:block lg:-right-16">
+      <div className="mb-2 flex items-center justify-between">
+        <span className="rounded-full border border-mint/40 px-2 py-0.5 text-[8px] font-semibold uppercase tracking-wide text-mint">
+          Private Class · 1:1
+        </span>
+        <span className="flex items-center gap-1 text-[8px] text-muted-foreground">
+          <Users className="h-2.5 w-2.5" /> 2
+        </span>
+      </div>
+      <div className="grid grid-cols-2 gap-1.5">
+        <Tile name="Mr. Chen" tone="primary" host />
+        <Tile name="Ravi" tone="mint" />
+      </div>
+      <div className="mt-1.5 space-y-1 rounded-lg border border-border bg-surface/70 p-1.5 text-[8px] text-muted-foreground">
+        <div className="flex items-center gap-1">
+          <CheckCircle2 className="h-2.5 w-2.5 text-mint" /> Personalized lesson · Calculus
+        </div>
+        <div className="flex items-center gap-1">
+          <CheckCircle2 className="h-2.5 w-2.5 text-mint" /> Shared whiteboard · AI monitoring
+        </div>
+      </div>
+    </div>
+  );
+}
+
 
 function TutorPanel() {
   return (
