@@ -22,27 +22,31 @@ export function Hero() {
         >
           <div className="mx-auto mb-7 inline-flex items-center gap-2 rounded-full border border-border bg-card/60 px-3 py-1 text-xs text-muted-foreground shadow-soft backdrop-blur-xl">
             <Sparkles className="h-3.5 w-3.5 text-primary" />
-            <span>Introducing AI Classroom Intelligence</span>
+            <span>Now with AI Classroom Monitoring</span>
           </div>
           <h1 className="text-balance text-5xl font-semibold tracking-tight md:text-7xl">
-            The <span className="font-display italic text-gradient">AI Operating System</span>
-            <br className="hidden md:block" /> for Modern Education
+            The <span className="font-display italic text-gradient">Smart Learning</span>
+            <br className="hidden md:block" /> Operating System
           </h1>
-          <p className="mx-auto mt-7 max-w-3xl text-pretty text-base leading-relaxed text-muted-foreground md:text-lg">
-            LearnOS brings live classrooms, course management, AI teaching assistants, scheduling, assessments,
-            parent communication, automation and analytics into one intelligent platform for schools, tutoring
-            companies and training organizations.
+          <p className="mx-auto mt-7 max-w-2xl text-pretty text-lg leading-relaxed text-muted-foreground md:text-xl">
+            AI-powered tutoring, live sessions, and academic intelligence for modern education.
+          </p>
+          <p className="mx-auto mt-5 max-w-3xl text-pretty text-sm leading-relaxed text-muted-foreground/80 md:text-base">
+            LearnOS is an all-in-one education operating system that combines live teaching, course management,
+            assessments, AI classroom intelligence, scheduling, communication, automation, analytics, and
+            administration into one seamless platform for schools, tutoring companies, and training organizations.
           </p>
           <div className="mt-10 flex flex-col items-center justify-center gap-3 sm:flex-row">
             <Button size="lg" className="bg-gradient-primary text-primary-foreground shadow-glow hover:opacity-95">
-              Start Free
+              Get Started
               <ArrowRight className="ml-1 h-4 w-4" />
             </Button>
             <Button size="lg" variant="outline" className="bg-card/60 backdrop-blur-xl">
               <Play className="mr-1 h-4 w-4" />
-              Book a Demo
+              Request Demo
             </Button>
           </div>
+
 
           <p className="mt-8 flex items-center justify-center gap-2 text-xs text-muted-foreground">
             <ShieldCheck className="h-3.5 w-3.5 text-mint" />
