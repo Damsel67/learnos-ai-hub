@@ -214,6 +214,33 @@ function ClassroomPanel() {
   );
 }
 
+function TutorPanel() {
+  return (
+    <div className="space-y-2.5">
+      <div className="grid grid-cols-2 gap-1.5">
+        {[
+          { l: "Classes", v: "5 today" },
+          { l: "Focus", v: "92%" },
+        ].map((s) => (
+          <div key={s.l} className="rounded-lg border border-border bg-card/60 p-1.5">
+            <div className="text-[9px] uppercase text-muted-foreground">{s.l}</div>
+            <div className="text-xs font-semibold">{s.v}</div>
+          </div>
+        ))}
+      </div>
+      <div className="rounded-lg border border-border bg-card/60 p-2 text-[10px] text-muted-foreground">
+        Grading queue · <span className="text-foreground">AI graded 24</span>
+      </div>
+      <div className="flex h-10 items-end gap-1">
+        {[40, 62, 55, 78, 68, 85, 92].map((h, i) => (
+          <div key={i} className="flex-1 rounded-sm bg-gradient-primary opacity-80" style={{ height: `${h}%` }} />
+        ))}
+      </div>
+    </div>
+  );
+}
+
+
 function AdminPanel() {
   return (
     <div className="space-y-2.5">
