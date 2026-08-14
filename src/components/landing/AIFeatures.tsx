@@ -4,14 +4,15 @@ import { SectionHeading } from "./Reveal";
 
 const features = [
   "AI creates lesson plans",
-  "AI marks quizzes",
+  "AI grades quizzes",
   "AI writes reports",
-  "AI summarizes sessions",
+  "AI summarizes live sessions",
   "AI identifies struggling learners",
   "AI recommends homework",
+  "AI sends parent updates",
   "AI predicts learner performance",
-  "AI writes parent updates",
 ];
+
 
 export function AIFeatures() {
   const reduce = useReducedMotion();
