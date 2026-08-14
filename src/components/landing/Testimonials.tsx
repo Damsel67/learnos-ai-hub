@@ -43,10 +43,11 @@ export function Testimonials() {
       <div className="mx-auto max-w-7xl px-6">
         <SectionHeading
           eyebrow="Testimonials"
-          title="Loved across"
-          accent="the whole institution"
+          title="Success"
+          accent="Stories"
           subtitle="School owners, tutors, parents and students — all on the same platform."
         />
+
 
         <div className="mt-16 grid gap-5 md:grid-cols-2">
           {testimonials.map((t, i) => (
