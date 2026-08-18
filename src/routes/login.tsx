@@ -61,7 +61,7 @@ function LoginPage() {
         .eq("id", data.user!.id)
         .maybeSingle();
       setNotice("Signed in successfully. Redirecting…");
-      navigate({ to: destinationFor((profile as Profile | null) ?? null) });
+      navigate({ to: destinationFor((profile as Profile | null) ?? null) as never });
     } catch {
       setError("Network error. Please check your connection and try again.");
       setLoading(false);
