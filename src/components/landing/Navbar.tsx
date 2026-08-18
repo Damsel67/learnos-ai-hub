@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from "@tanstack/react-router";
 import { Button } from "@/components/ui/button";
 import { LogoMark } from "./Logo";
 import { ThemeToggle } from "./ThemeToggle";
@@ -11,7 +12,6 @@ const links = [
   { label: "Resources", href: "#faq" },
   { label: "Enterprise", href: "#why" },
   { label: "Demo", href: "#demo" },
-  { label: "Login", href: "#login" },
 ];
 
 export function Navbar() {
@@ -40,8 +40,11 @@ export function Navbar() {
 
         <div className="flex items-center gap-2">
           <ThemeToggle />
-          <Button size="sm" className="bg-gradient-primary text-primary-foreground shadow-soft hover:opacity-95">
-            Get Started
+          <Button asChild size="sm" variant="ghost" className="hidden text-muted-foreground hover:text-foreground sm:inline-flex">
+            <Link to="/login">Login</Link>
+          </Button>
+          <Button asChild size="sm" className="bg-gradient-primary text-primary-foreground shadow-soft hover:opacity-95">
+            <Link to="/signup">Get Started</Link>
           </Button>
           <button
             aria-label="Toggle menu"
