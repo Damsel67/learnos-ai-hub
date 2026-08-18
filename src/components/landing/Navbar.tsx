@@ -40,8 +40,11 @@ export function Navbar() {
 
         <div className="flex items-center gap-2">
           <ThemeToggle />
-          <Button size="sm" className="bg-gradient-primary text-primary-foreground shadow-soft hover:opacity-95">
-            Get Started
+          <Button asChild size="sm" variant="ghost" className="hidden text-muted-foreground hover:text-foreground sm:inline-flex">
+            <Link to="/login">Login</Link>
+          </Button>
+          <Button asChild size="sm" className="bg-gradient-primary text-primary-foreground shadow-soft hover:opacity-95">
+            <Link to="/signup">Get Started</Link>
           </Button>
           <button
             aria-label="Toggle menu"
