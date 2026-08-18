@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from "@tanstack/react-router";
 import { Button } from "@/components/ui/button";
 import { LogoMark } from "./Logo";
 import { ThemeToggle } from "./ThemeToggle";
@@ -11,7 +12,6 @@ const links = [
   { label: "Resources", href: "#faq" },
   { label: "Enterprise", href: "#why" },
   { label: "Demo", href: "#demo" },
-  { label: "Login", href: "#login" },
 ];
 
 export function Navbar() {
