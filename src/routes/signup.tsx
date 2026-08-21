@@ -66,7 +66,7 @@ function SignupPage() {
         email,
         password,
         options: {
-          emailRedirectTo: `${window.location.origin}/auth/callback`,
+          emailRedirectTo: `${window.location.origin}/auth/callback?flow=verify`,
           data: { full_name: fullName.trim(), account_type: accountType },
         },
       });
