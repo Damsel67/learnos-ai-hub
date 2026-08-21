@@ -42,7 +42,7 @@ export function VerificationSuccess({
       <div className="space-y-1.5">
         <p className="text-lg font-semibold tracking-tight">{title}</p>
         {lines.map((l) => (
-          <p key={l} className="text-sm text-muted-foreground">
+          <p key={l} className="text-[0.9375rem] leading-relaxed text-muted-foreground">
             {l}
           </p>
         ))}
