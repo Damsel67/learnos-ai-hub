@@ -128,7 +128,7 @@ function SignupPage() {
                     <Icon className="h-4 w-4" />
                   </span>
                   <p className="text-sm font-semibold">{label}</p>
-                  <p className="mt-1 text-xs text-muted-foreground">{desc}</p>
+                  <p className="mt-1 text-[0.8125rem] text-muted-foreground">{desc}</p>
                 </button>
               );
             })}
