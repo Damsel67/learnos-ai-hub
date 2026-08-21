@@ -80,7 +80,7 @@ export function OtpInput({
           maxLength={1}
           aria-label={`Digit ${i + 1}`}
           aria-invalid={invalid || undefined}
-          className={`h-12 w-11 rounded-xl border bg-surface/60 text-center text-lg font-semibold tabular-nums shadow-card backdrop-blur-xl outline-none transition-colors focus:border-primary focus:ring-2 focus:ring-primary/30 disabled:opacity-60 sm:h-14 sm:w-12 ${
+          className={`h-12 w-11 rounded-xl border bg-surface/80 text-center text-lg font-semibold text-foreground tabular-nums shadow-card backdrop-blur-xl outline-none transition-colors focus:border-primary focus:ring-2 focus:ring-primary/30 disabled:opacity-60 sm:h-14 sm:w-12 ${
             invalid ? "border-destructive focus:border-destructive focus:ring-destructive/30" : "border-border"
           }`}
         />
