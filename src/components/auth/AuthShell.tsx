@@ -45,7 +45,7 @@ export function AuthShell({
           <div className="flex items-center gap-2">
             <Link
               to="/"
-              className="hidden items-center gap-1.5 rounded-lg border border-border bg-card/60 px-3 py-2 text-sm text-muted-foreground backdrop-blur-xl transition-colors hover:text-foreground sm:inline-flex"
+              className="hidden items-center gap-1.5 rounded-lg border border-border bg-card/70 px-3 py-2 text-sm font-medium text-muted-foreground shadow-soft backdrop-blur-xl transition-colors hover:border-primary/40 hover:text-foreground sm:inline-flex"
             >
               <ArrowLeft className="h-3.5 w-3.5" /> Back to website
             </Link>
@@ -60,15 +60,15 @@ export function AuthShell({
             <AuthBrand />
             <h1 className="mt-6 text-2xl font-semibold tracking-tight sm:text-3xl">{title}</h1>
             {subtitle && (
-              <p className="mt-2 max-w-sm text-sm text-muted-foreground">{subtitle}</p>
+              <p className="mt-2 max-w-sm text-[0.9375rem] leading-relaxed text-muted-foreground">{subtitle}</p>
             )}
           </div>
 
-          <div className="rounded-2xl border border-border/70 bg-card/70 p-6 shadow-card backdrop-blur-xl sm:p-8">
+          <div className="rounded-2xl border border-border bg-card/80 p-6 shadow-card backdrop-blur-xl sm:p-8">
             {children}
           </div>
 
-          {footer && <div className="mt-6 text-center text-sm text-muted-foreground">{footer}</div>}
+          {footer && <div className="mt-6 text-center text-[0.9375rem] text-muted-foreground">{footer}</div>}
         </div>
       </main>
     </div>

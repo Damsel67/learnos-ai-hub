@@ -17,12 +17,12 @@ export function Field({
 }) {
   return (
     <div className="space-y-1.5">
-      <Label htmlFor={id} className="text-sm font-medium">
+      <Label htmlFor={id} className="text-[0.9375rem] font-medium text-foreground">
         {label}
       </Label>
       {children}
       {error && (
-        <p id={`${id}-error`} className="flex items-center gap-1.5 text-xs text-destructive">
+        <p id={`${id}-error`} className="flex items-center gap-1.5 text-[0.8125rem] font-medium text-destructive">
           <AlertCircle className="h-3 w-3" /> {error}
         </p>
       )}
@@ -119,7 +119,7 @@ export function Divider({ label = "OR" }: { label?: string }) {
   return (
     <div className="my-6 flex items-center gap-3">
       <span className="h-px flex-1 bg-border" />
-      <span className="text-[11px] font-medium uppercase tracking-widest text-muted-foreground">
+      <span className="text-xs font-semibold uppercase tracking-widest text-muted-foreground">
         {label}
       </span>
       <span className="h-px flex-1 bg-border" />
@@ -216,7 +216,7 @@ export function isStrongPassword(v: string) {
 
 export function PasswordChecklist({ value }: { value: string }) {
   return (
-    <ul className="grid gap-1.5 rounded-xl border border-border bg-surface/60 p-3 text-xs">
+    <ul className="grid gap-1.5 rounded-xl border border-border bg-surface/70 p-3 text-[0.8125rem]">
       {passwordRules.map((r) => {
         const ok = r.test(value);
         return (
