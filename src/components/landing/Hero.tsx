@@ -37,15 +37,20 @@ export function Hero() {
             administration into one seamless platform for schools, tutoring companies, and training organizations.
           </p>
           <div className="mt-10 flex flex-col items-center justify-center gap-3 sm:flex-row">
-            <Button size="lg" className="bg-gradient-primary text-primary-foreground shadow-glow hover:opacity-95">
-              Get Started
-              <ArrowRight className="ml-1 h-4 w-4" />
+            <Button asChild size="lg" className="bg-gradient-primary text-primary-foreground shadow-glow hover:opacity-95">
+              <Link to="/signup">
+                Get Started
+                <ArrowRight className="ml-1 h-4 w-4" />
+              </Link>
             </Button>
-            <Button size="lg" variant="outline" className="bg-card/60 backdrop-blur-xl">
-              <Play className="mr-1 h-4 w-4" />
-              Request Demo
-            </Button>
+            <CustomerCareModal>
+              <Button size="lg" variant="outline" className="bg-card/60 backdrop-blur-xl">
+                <Play className="mr-1 h-4 w-4" />
+                Request Demo
+              </Button>
+            </CustomerCareModal>
           </div>
+
 
 
           <p className="mt-8 flex items-center justify-center gap-2 text-xs text-muted-foreground">
