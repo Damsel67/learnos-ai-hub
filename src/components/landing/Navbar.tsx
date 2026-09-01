@@ -3,6 +3,8 @@ import { Link } from "@tanstack/react-router";
 import { Button } from "@/components/ui/button";
 import { LogoMark } from "./Logo";
 import { ThemeToggle } from "./ThemeToggle";
+import { CustomerCareModal } from "./CustomerCareModal";
+
 import { Menu, X } from "lucide-react";
 
 const links = [
