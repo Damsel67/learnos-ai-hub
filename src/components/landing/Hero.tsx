@@ -1,7 +1,10 @@
+import { Link } from "@tanstack/react-router";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Sparkles, Play, ShieldCheck } from "lucide-react";
 import { motion, useReducedMotion } from "motion/react";
 import { HeroShowcase } from "./HeroShowcase";
+import { CustomerCareModal } from "./CustomerCareModal";
+
 
 const logos = ["Northgate Academy", "BrightPath Tutors", "Lumen Institute", "EduWorks Group", "Skillbridge"];
 
