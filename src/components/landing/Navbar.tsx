@@ -21,12 +21,13 @@ export function Navbar() {
   return (
     <header className="sticky top-0 z-50 w-full border-b border-border/60 bg-background/60 backdrop-blur-xl">
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-6">
-        <a href="#" className="flex items-center gap-2">
+        <Link to="/" className="flex items-center gap-2">
           <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-primary shadow-glow ring-1 ring-border">
             <LogoMark className="h-4 w-4" />
           </span>
           <span className="text-lg font-semibold tracking-tight">LearnOS</span>
-        </a>
+        </Link>
+
 
         <nav className="hidden items-center gap-7 lg:flex">
           {links.map((l) => (
