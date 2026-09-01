@@ -1,5 +1,7 @@
+import { Link } from "@tanstack/react-router";
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
+import { CustomerCareModal } from "./CustomerCareModal";
 
 export function CTA() {
   return (
@@ -14,12 +16,16 @@ export function CTA() {
             Join thousands of educators using LearnOS to deliver better learning outcomes.
           </p>
           <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
-            <Button size="lg" variant="secondary" className="bg-card text-foreground hover:bg-card/90">
-              Start free trial <ArrowRight className="ml-1 h-4 w-4" />
+            <Button asChild size="lg" variant="secondary" className="bg-card text-foreground hover:bg-card/90">
+              <Link to="/signup">
+                Start free trial <ArrowRight className="ml-1 h-4 w-4" />
+              </Link>
             </Button>
-            <Button size="lg" variant="ghost" className="text-primary-foreground hover:bg-primary-foreground/10">
-              Talk to sales
-            </Button>
+            <CustomerCareModal>
+              <Button size="lg" variant="ghost" className="text-primary-foreground hover:bg-primary-foreground/10">
+                Talk to sales
+              </Button>
+            </CustomerCareModal>
           </div>
         </div>
       </div>
