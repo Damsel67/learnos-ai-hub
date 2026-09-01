@@ -50,7 +50,7 @@ export function CustomerCareModal({
     const opt = OPTIONS.find((o) => o.label === selected);
     if (!opt) return;
     const message = `Hello, I am interested in your LearnOS services as ${opt.phrase}.`;
-    window.open(`${WHATSAPP_URL}?text=${encodeURIComponent(message)}`, "_blank", "noopener,noreferrer");
+    window.open(`${WHATSAPP_URL}&text=${encodeURIComponent(message)}`, "_blank", "noopener,noreferrer");
     setOpen(false);
   }
 
