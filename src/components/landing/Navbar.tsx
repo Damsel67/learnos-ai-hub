@@ -69,9 +69,27 @@ export function Navbar() {
                 {l.label}
               </a>
             ))}
+            <div className="mt-2 grid gap-2 border-t border-border/60 pt-3">
+              <Button asChild variant="outline" className="w-full" onClick={() => setOpen(false)}>
+                <Link to="/login">Login</Link>
+              </Button>
+              <Button
+                asChild
+                className="w-full bg-gradient-primary text-primary-foreground shadow-soft hover:opacity-95"
+                onClick={() => setOpen(false)}
+              >
+                <Link to="/signup">Get Started</Link>
+              </Button>
+              <CustomerCareModal>
+                <Button variant="ghost" className="w-full text-muted-foreground hover:text-foreground">
+                  Talk to sales
+                </Button>
+              </CustomerCareModal>
+            </div>
           </nav>
         </div>
       )}
     </header>
   );
 }
+
