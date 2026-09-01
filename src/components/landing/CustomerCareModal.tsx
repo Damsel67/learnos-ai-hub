@@ -11,7 +11,10 @@ import {
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
-const WHATSAPP_URL = "https://wa.link/yk5oa4";
+// Resolved destination of https://wa.link/yk5oa4 — used directly so the
+// prefilled message survives the redirect.
+const WHATSAPP_URL = "https://api.whatsapp.com/send?phone=2349165621724";
+
 
 const OPTIONS = [
   { label: "Institution / School", phrase: "an Institution / School" },
