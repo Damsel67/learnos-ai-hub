@@ -11,8 +11,14 @@ import {
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
-// Standard WhatsApp click-to-chat link only. No WhatsApp API integration.
-const WHATSAPP_URL = "https://wa.link/yk5oa4";
+// Standard WhatsApp click-to-chat URL only. No WhatsApp API integration.
+// Number resolved from the existing wa.link/yk5oa4 destination.
+const WHATSAPP_PHONE = "2349165621724";
+
+function buildWhatsAppUrl(label: string) {
+  const message = `Hello, I am interested in LearnOS services as a ${label}. I would like to learn more.`;
+  return `https://wa.me/${WHATSAPP_PHONE}?text=${encodeURIComponent(message)}`;
+}
 
 const OPTIONS = [
   {
@@ -73,8 +79,9 @@ export function CustomerCareModal({
   };
 
   function handleContinue() {
-    // Open the standard WhatsApp click-to-chat link in a new tab.
-    window.open(WHATSAPP_URL, "_blank", "noopener,noreferrer");
+    if (!selected) return;
+    // Standard wa.me click-to-chat: works on mobile (app) and desktop (WhatsApp Web).
+    window.open(buildWhatsAppUrl(selected), "_blank", "noopener,noreferrer");
     setOpen(false);
   }
 
