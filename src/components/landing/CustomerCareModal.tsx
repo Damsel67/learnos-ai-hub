@@ -11,19 +11,45 @@ import {
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
-// Resolved destination of https://wa.link/yk5oa4 — used directly so the
-// prefilled message survives the redirect.
-const WHATSAPP_URL = "https://api.whatsapp.com/send?phone=2349165621724";
-
+// Standard WhatsApp click-to-chat link only. No WhatsApp API integration.
+const WHATSAPP_URL = "https://wa.link/yk5oa4";
 
 const OPTIONS = [
-  { label: "Institution / School", phrase: "an Institution / School" },
-  { label: "Tutoring Company", phrase: "a Tutoring Company" },
-  { label: "Independent Tutor", phrase: "an Independent Tutor" },
-  { label: "Parent", phrase: "a Parent" },
-  { label: "Student", phrase: "a Student" },
-  { label: "Training Organization", phrase: "a Training Organization" },
-  { label: "Other", phrase: "Other" },
+  {
+    label: "Institution / School",
+    phrase: "an Institution / School",
+    description: "I’m interested in LearnOS for my school or institution.",
+  },
+  {
+    label: "Tutoring Company",
+    phrase: "a Tutoring Company",
+    description: "I’m interested in LearnOS for my tutoring company.",
+  },
+  {
+    label: "Independent Tutor",
+    phrase: "an Independent Tutor",
+    description: "I’m interested in LearnOS as an independent tutor.",
+  },
+  {
+    label: "Parent",
+    phrase: "a Parent",
+    description: "I’m interested in LearnOS for my child.",
+  },
+  {
+    label: "Student",
+    phrase: "a Student",
+    description: "I’m interested in LearnOS as a student.",
+  },
+  {
+    label: "Training Organization",
+    phrase: "a Training Organization",
+    description: "I’m interested in LearnOS for my training organization.",
+  },
+  {
+    label: "Other",
+    phrase: "Other",
+    description: "I have another question about LearnOS.",
+  },
 ] as const;
 
 export function CustomerCareModal({
@@ -47,10 +73,8 @@ export function CustomerCareModal({
   };
 
   function handleContinue() {
-    const opt = OPTIONS.find((o) => o.label === selected);
-    if (!opt) return;
-    const message = `Hello, I am interested in your LearnOS services as ${opt.phrase}.`;
-    window.open(`${WHATSAPP_URL}&text=${encodeURIComponent(message)}`, "_blank", "noopener,noreferrer");
+    // Open the standard WhatsApp click-to-chat link in a new tab.
+    window.open(WHATSAPP_URL, "_blank", "noopener,noreferrer");
     setOpen(false);
   }
 
@@ -62,13 +86,13 @@ export function CustomerCareModal({
           <div className="mb-2 flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-primary shadow-glow">
             <MessageCircle className="h-5 w-5 text-primary-foreground" />
           </div>
-          <DialogTitle>Customer Care</DialogTitle>
+          <DialogTitle>How can we help?</DialogTitle>
           <DialogDescription>
-            Tell us a little about yourself so we can connect you with the right LearnOS team.
+            Tell us what you’re interested in and our team will be happy to assist.
           </DialogDescription>
         </DialogHeader>
 
-        <div className="grid gap-2 sm:grid-cols-2">
+        <div className="grid max-h-80 gap-2 overflow-y-auto pr-1 sm:grid-cols-2">
           {OPTIONS.map((o) => {
             const active = selected === o.label;
             return (
@@ -78,13 +102,16 @@ export function CustomerCareModal({
                 aria-pressed={active}
                 onClick={() => setSelected(o.label)}
                 className={cn(
-                  "rounded-xl border px-3 py-2.5 text-left text-sm font-medium shadow-soft transition-colors",
+                  "rounded-xl border px-3 py-2.5 text-left shadow-soft transition-colors",
                   active
-                    ? "border-primary/60 bg-primary/10 text-foreground"
-                    : "border-border bg-surface/60 text-muted-foreground hover:border-primary/40 hover:text-foreground",
+                    ? "border-primary/60 bg-primary/10"
+                    : "border-border bg-surface/60 hover:border-primary/40",
                 )}
               >
-                {o.label}
+                <span className={cn("block text-sm font-medium", active ? "text-foreground" : "text-foreground")}>
+                  {o.label}
+                </span>
+                <span className="mt-0.5 block text-xs leading-snug text-muted-foreground">{o.description}</span>
               </button>
             );
           })}
