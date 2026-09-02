@@ -124,6 +124,12 @@ export function CustomerCareModal({
           })}
         </div>
 
+        {selected ? (
+          <p className="mt-3 text-sm text-muted-foreground">
+            Great! Click below to continue the conversation with our customer care team.
+          </p>
+        ) : null}
+
         <div className="mt-2 flex flex-col-reverse gap-2 sm:flex-row sm:justify-end">
           <Button variant="ghost" onClick={() => setOpen(false)}>
             Cancel
