@@ -113,7 +113,7 @@ export function Footer() {
               {[Twitter, Github, Linkedin].map((Icon, i) => (
                 <a
                   key={i}
-                  href="https://wa.link/yk5oa4"
+                  href="https://wa.me/2349165621724"
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label="Social link"
