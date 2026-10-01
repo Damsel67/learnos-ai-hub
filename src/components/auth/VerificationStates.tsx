@@ -6,7 +6,7 @@ import { destinationFor, type Profile } from "@/hooks/use-auth";
 
 export function VerificationSuccess({
   title = "Email verification complete",
-  lines = ["Your email has been successfully verified.", "You can now continue to your LearnOS account."],
+  lines = ["Your email address has been successfully verified."],
 }: {
   title?: string;
   lines?: string[];
@@ -57,7 +57,7 @@ export function VerificationSuccess({
         className="inline-flex h-11 w-full items-center justify-center gap-2 rounded-xl bg-gradient-primary text-sm font-semibold text-primary-foreground shadow-glow transition-opacity hover:opacity-95 disabled:opacity-60"
       >
         {going && <Loader2 className="h-4 w-4 animate-spin" />}
-        Continue to LearnOS <ArrowRight className="h-4 w-4" />
+        Continue <ArrowRight className="h-4 w-4" />
       </button>
     </div>
   );
