@@ -10,10 +10,146 @@ export type Database = {
   // Allows to automatically instantiate createClient with right options
   // instead of createClient<Database, { PostgrestVersion: 'XX' }>(URL, KEY)
   __InternalSupabase: {
-    PostgrestVersion: "14.15"
+    PostgrestVersion: "14.5"
   }
   public: {
     Tables: {
+      invitations: {
+        Row: {
+          accepted_at: string | null
+          accepted_by: string | null
+          created_at: string
+          email: string
+          expires_at: string
+          first_name: string | null
+          id: string
+          intended_role: Database["public"]["Enums"]["org_role"]
+          invitation_type: Database["public"]["Enums"]["invitation_type"]
+          inviter_id: string
+          last_name: string | null
+          organization_id: string | null
+          status: Database["public"]["Enums"]["invitation_status"]
+          token: string
+        }
+        Insert: {
+          accepted_at?: string | null
+          accepted_by?: string | null
+          created_at?: string
+          email: string
+          expires_at?: string
+          first_name?: string | null
+          id?: string
+          intended_role: Database["public"]["Enums"]["org_role"]
+          invitation_type: Database["public"]["Enums"]["invitation_type"]
+          inviter_id: string
+          last_name?: string | null
+          organization_id?: string | null
+          status?: Database["public"]["Enums"]["invitation_status"]
+          token: string
+        }
+        Update: {
+          accepted_at?: string | null
+          accepted_by?: string | null
+          created_at?: string
+          email?: string
+          expires_at?: string
+          first_name?: string | null
+          id?: string
+          intended_role?: Database["public"]["Enums"]["org_role"]
+          invitation_type?: Database["public"]["Enums"]["invitation_type"]
+          inviter_id?: string
+          last_name?: string | null
+          organization_id?: string | null
+          status?: Database["public"]["Enums"]["invitation_status"]
+          token?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "invitations_organization_id_fkey"
+            columns: ["organization_id"]
+            isOneToOne: false
+            referencedRelation: "organizations"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      organization_members: {
+        Row: {
+          created_at: string
+          id: string
+          organization_id: string
+          role: Database["public"]["Enums"]["org_role"]
+          status: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          organization_id: string
+          role: Database["public"]["Enums"]["org_role"]
+          status?: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          organization_id?: string
+          role?: Database["public"]["Enums"]["org_role"]
+          status?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "organization_members_organization_id_fkey"
+            columns: ["organization_id"]
+            isOneToOne: false
+            referencedRelation: "organizations"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      organizations: {
+        Row: {
+          created_at: string
+          created_by: string | null
+          id: string
+          name: string
+        }
+        Insert: {
+          created_at?: string
+          created_by?: string | null
+          id?: string
+          name: string
+        }
+        Update: {
+          created_at?: string
+          created_by?: string | null
+          id?: string
+          name?: string
+        }
+        Relationships: []
+      }
+      parent_learner_links: {
+        Row: {
+          created_at: string
+          id: string
+          learner_id: string
+          parent_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          learner_id: string
+          parent_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          learner_id?: string
+          parent_id?: string
+        }
+        Relationships: []
+      }
       profiles: {
         Row: {
           account_type: Database["public"]["Enums"]["account_type"]
@@ -46,10 +182,69 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      accept_invitation: {
+        Args: {
+          _token: string
+          _type: Database["public"]["Enums"]["invitation_type"]
+        }
+        Returns: Json
+      }
+      can_manage_invitation: {
+        Args: {
+          _inv: Database["public"]["Tables"]["invitations"]["Row"]
+          _uid: string
+        }
+        Returns: boolean
+      }
+      create_invitation: {
+        Args: {
+          _email: string
+          _first?: string
+          _last?: string
+          _type: Database["public"]["Enums"]["invitation_type"]
+        }
+        Returns: Json
+      }
+      ensure_my_organization: { Args: never; Returns: string }
+      get_invitation: {
+        Args: {
+          _token: string
+          _type: Database["public"]["Enums"]["invitation_type"]
+        }
+        Returns: Json
+      }
+      is_org_member: {
+        Args: {
+          _org: string
+          _role?: Database["public"]["Enums"]["org_role"]
+          _user: string
+        }
+        Returns: boolean
+      }
+      list_my_invitations: {
+        Args: never
+        Returns: {
+          created_at: string
+          email: string
+          expires_at: string
+          first_name: string
+          id: string
+          invitation_type: Database["public"]["Enums"]["invitation_type"]
+          inviter_name: string
+          last_name: string
+          status: string
+          token: string
+        }[]
+      }
+      my_invite_context: { Args: never; Returns: Json }
+      resend_invitation: { Args: { _id: string }; Returns: Json }
+      revoke_invitation: { Args: { _id: string }; Returns: undefined }
     }
     Enums: {
       account_type: "student" | "parent" | "tutor" | "organization"
+      invitation_status: "pending" | "accepted" | "expired" | "revoked"
+      invitation_type: "admin" | "tutor" | "learner"
+      org_role: "admin" | "tutor" | "learner"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -178,6 +373,9 @@ export const Constants = {
   public: {
     Enums: {
       account_type: ["student", "parent", "tutor", "organization"],
+      invitation_status: ["pending", "accepted", "expired", "revoked"],
+      invitation_type: ["admin", "tutor", "learner"],
+      org_role: ["admin", "tutor", "learner"],
     },
   },
 } as const
