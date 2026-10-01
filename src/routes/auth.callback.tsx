@@ -53,7 +53,7 @@ function CallbackPage() {
 
       if (errorCode) {
         if (user?.email_confirmed_at) setState({ kind: "already" });
-        else setState({ kind: isVerifyFlow || /otp|expired|access_denied/i.test(errorCode) ? "expired" : "error" });
+        else setState({ kind: /expired/i.test(errorCode + " " + (hash.get("error_description") ?? query.get("error_description") ?? "")) ? "expired" : "error" });
         return;
       }
 
@@ -103,11 +103,11 @@ function CallbackPage() {
     const expired = state.kind === "expired";
     return (
       <AuthShell
-        title={expired ? "Verification link expired" : "Sign-in couldn't be completed"}
+        title={expired ? "Verification link expired" : "Verification link is invalid"}
         subtitle={
           expired
-            ? "This verification link is no longer valid. Please request a new verification email."
-            : "The link may have expired — please try again."
+            ? "Your verification link has expired. Request a new verification email to continue."
+            : "This verification link is no longer valid. Please request a new verification email."
         }
       >
         <div className="flex flex-col items-center gap-5 text-center">
@@ -116,15 +116,15 @@ function CallbackPage() {
           </span>
           <FormAlert tone="error">
             {expired
-              ? "This verification link is no longer valid. Please request a new verification email."
-              : "We couldn't complete sign-in."}
+              ? "Your verification link has expired. Request a new verification email to continue."
+              : "This verification link is no longer valid. Please request a new verification email."}
           </FormAlert>
           <button
             type="button"
-            onClick={() => navigate({ to: expired ? "/verify-email" : "/login", search: expired ? {} : undefined })}
+            onClick={() => navigate({ to: "/verify-email", search: {} })}
             className="inline-flex h-11 w-full items-center justify-center rounded-xl bg-gradient-primary text-sm font-semibold text-primary-foreground shadow-glow hover:opacity-95"
           >
-            {expired ? "Send New Verification Email" : "Back to Sign In"}
+            {expired ? "Resend Verification Email" : "Send New Verification Code"}
           </button>
         </div>
       </AuthShell>

@@ -27,7 +27,7 @@ export const Route = createFileRoute("/verify-email")({
 
 function VerifyEmailPage() {
   const { email } = Route.useSearch();
-  const [seconds, setSeconds] = useState(45);
+  const [seconds, setSeconds] = useState(60);
   const [sending, setSending] = useState(false);
   const [code, setCode] = useState("");
   const [verifying, setVerifying] = useState(false);
@@ -57,7 +57,7 @@ function VerifyEmailPage() {
           setCodeError(
             m.includes("expired")
               ? "That code has expired. Request a new verification email below."
-              : "That code is incorrect. Please check the code and try again.",
+              : "Incorrect verification code. Please check your email and try again.",
           );
           setVerifying(false);
           return;
@@ -84,8 +84,8 @@ function VerifyEmailPage() {
       });
       if (resendError) setError(friendlyAuthError(resendError.message));
       else {
-        setNotice("New verification code and verification link sent. Check your inbox and spam folder.");
-        setSeconds(45);
+        setNotice("Verification code sent. Check your inbox and spam folder.");
+        setSeconds(60);
         setCode("");
       }
     } catch {
@@ -105,7 +105,7 @@ function VerifyEmailPage() {
   return (
     <AuthShell
       title="Verify your email"
-      subtitle="We've sent a verification link and a 6-digit verification code to your email."
+      subtitle="We've sent a verification code and verification link to your email address."
       footer={
         <Link to="/login" className="font-medium text-primary hover:underline">
           Back to Sign In
@@ -153,14 +153,14 @@ function VerifyEmailPage() {
         </form>
 
         <div className="w-full space-y-2 border-t border-border pt-5">
-          <p className="text-sm text-muted-foreground">Didn't receive the email?</p>
+          <p className="text-sm text-muted-foreground">Didn't receive the code?</p>
           <button
             type="button"
             onClick={() => void resend()}
             disabled={seconds > 0 || sending || !email}
             className="inline-flex h-11 w-full items-center justify-center rounded-xl border border-border bg-card/70 text-sm font-semibold backdrop-blur-xl transition-colors hover:border-primary/40 hover:bg-surface disabled:cursor-not-allowed disabled:opacity-60"
           >
-            {sending ? "Sending..." : seconds > 0 ? `Resend available in ${seconds}s` : "Resend verification email"}
+            {sending ? "Sending..." : seconds > 0 ? `Resend available in ${seconds} seconds` : "Resend Code"}
           </button>
         </div>
 
