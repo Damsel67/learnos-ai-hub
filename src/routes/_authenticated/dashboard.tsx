@@ -1,4 +1,4 @@
-import { createFileRoute, useNavigate } from "@tanstack/react-router";
+import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { LogOut } from "lucide-react";
 import { useQueryClient } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
@@ -58,6 +58,15 @@ function DashboardPage() {
             </div>
           ))}
         </div>
+
+        {(profile?.account_type === "organization" || profile?.account_type === "parent") && (
+          <Link
+            to="/settings/invitations"
+            className="mt-8 inline-flex items-center gap-2 rounded-xl border border-border bg-surface/50 px-4 py-2.5 text-sm font-medium hover:border-primary/40"
+          >
+            {profile.account_type === "parent" ? "Learners → Invite Learner" : "Manage invitations"}
+          </Link>
+        )}
       </main>
     </div>
   );
