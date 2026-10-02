@@ -8,6 +8,7 @@ import {
 } from "react";
 import type { Session, User } from "@supabase/supabase-js";
 import { supabase } from "@/integrations/supabase/client";
+import { invitePath, readPendingInvite } from "@/lib/invite";
 
 export type AccountType = "student" | "parent" | "tutor" | "organization";
 
@@ -30,6 +31,9 @@ type AuthContextValue = {
 const AuthContext = createContext<AuthContextValue | undefined>(undefined);
 
 export function destinationFor(profile: Profile | null): string {
+  // An invitation opened before signing in/up takes priority so it survives verification.
+  const pending = readPendingInvite();
+  if (pending) return invitePath(pending.type, pending.token);
   if (!profile) return "/onboarding/student";
   if (profile.onboarding_completed) return "/dashboard";
   return `/onboarding/${profile.account_type}`;
