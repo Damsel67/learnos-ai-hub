@@ -1,5 +1,6 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { accountTypeForInvite, inviteLabel, readPendingInvite, type PendingInvite } from "@/lib/invite";
 import { ArrowRight, Building2, GraduationCap, Users, UserRound } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { AuthShell } from "@/components/auth/AuthShell";
@@ -48,6 +49,15 @@ function SignupPage() {
   const [touched, setTouched] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [invite, setInvite] = useState<PendingInvite | null>(null);
+
+  useEffect(() => {
+    const pending = readPendingInvite();
+    if (!pending) return;
+    setInvite(pending);
+    setAccountType(accountTypeForInvite[pending.type]);
+    if (pending.email) setEmail(pending.email);
+  }, []);
 
   const emailValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
   const nameValid = fullName.trim().length >= 2;
@@ -103,6 +113,11 @@ function SignupPage() {
       <form onSubmit={onSubmit} noValidate className="space-y-5">
         {error && <FormAlert tone="error">{error}</FormAlert>}
 
+        {invite ? (
+          <FormAlert tone="success">
+            You're creating an account from a {inviteLabel[invite.type]} invitation. Your role is set by the invitation.
+          </FormAlert>
+        ) : (
         <div>
           <p className="mb-3 text-sm font-medium">What type of account are you creating?</p>
           <div className="grid gap-3 sm:grid-cols-2">
@@ -134,6 +149,7 @@ function SignupPage() {
             })}
           </div>
         </div>
+        )}
 
         <div className="grid gap-4 sm:grid-cols-2">
           <Field id="fullName" label="Full name" error={touched && !nameValid ? "Enter your full name." : undefined}>
