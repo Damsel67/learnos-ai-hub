@@ -154,7 +154,7 @@ function SignupForm({ kind, invite }: { kind?: SignupKind; invite?: PendingInvit
         password,
         options: {
           emailRedirectTo: `${window.location.origin}/auth/callback?flow=verify`,
-          data: { full_name: fullName.trim(), account_type: accountType },
+          data: { full_name: fullName.trim(), account_type: accountType, ...(kind ? { signup_kind: kind } : {}) },
         },
       });
       if (signUpError) {
