@@ -8,6 +8,13 @@
       "when": 1790880810227,
       "tag": "0000_invitation_system",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1791073203897,
+      "tag": "0001_org_setup_and_cross_device_invites",
+      "breakpoints": true
     }
   ]
 }

@@ -110,22 +110,37 @@ export type Database = {
       }
       organizations: {
         Row: {
+          country: string | null
           created_at: string
           created_by: string | null
           id: string
+          logo_url: string | null
           name: string
+          org_type: string | null
+          setup_completed: boolean
+          website: string | null
         }
         Insert: {
+          country?: string | null
           created_at?: string
           created_by?: string | null
           id?: string
+          logo_url?: string | null
           name: string
+          org_type?: string | null
+          setup_completed?: boolean
+          website?: string | null
         }
         Update: {
+          country?: string | null
           created_at?: string
           created_by?: string | null
           id?: string
+          logo_url?: string | null
           name?: string
+          org_type?: string | null
+          setup_completed?: boolean
+          website?: string | null
         }
         Relationships: []
       }
@@ -154,6 +169,7 @@ export type Database = {
         Row: {
           account_type: Database["public"]["Enums"]["account_type"]
           created_at: string
+          customer_type: string | null
           full_name: string | null
           id: string
           onboarding_completed: boolean
@@ -162,6 +178,7 @@ export type Database = {
         Insert: {
           account_type?: Database["public"]["Enums"]["account_type"]
           created_at?: string
+          customer_type?: string | null
           full_name?: string | null
           id: string
           onboarding_completed?: boolean
@@ -170,6 +187,7 @@ export type Database = {
         Update: {
           account_type?: Database["public"]["Enums"]["account_type"]
           created_at?: string
+          customer_type?: string | null
           full_name?: string | null
           id?: string
           onboarding_completed?: boolean
@@ -205,6 +223,15 @@ export type Database = {
         }
         Returns: Json
       }
+      create_my_organization: {
+        Args: {
+          _country: string
+          _name: string
+          _type: string
+          _website?: string
+        }
+        Returns: string
+      }
       ensure_my_organization: { Args: never; Returns: string }
       get_invitation: {
         Args: {
@@ -237,8 +264,20 @@ export type Database = {
         }[]
       }
       my_invite_context: { Args: never; Returns: Json }
+      my_organization: { Args: never; Returns: Json }
+      my_pending_invite: { Args: never; Returns: Json }
       resend_invitation: { Args: { _id: string }; Returns: Json }
       revoke_invitation: { Args: { _id: string }; Returns: undefined }
+      update_organization_profile: {
+        Args: {
+          _country: string
+          _name: string
+          _org: string
+          _type: string
+          _website?: string
+        }
+        Returns: undefined
+      }
     }
     Enums: {
       account_type: "student" | "parent" | "tutor" | "organization"
