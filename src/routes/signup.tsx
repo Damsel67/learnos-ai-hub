@@ -178,14 +178,7 @@ function SignupForm({ kind, invite }: { kind?: SignupKind; invite?: PendingInvit
       wide
       title="Create your LearnOS account"
       subtitle="Start building a smarter learning experience today."
-      footer={
-        <>
-          Already have an account?{" "}
-          <Link to="/login" className="font-medium text-primary hover:underline">
-            Sign In
-          </Link>
-        </>
-      }
+      footer={signInFooter}
     >
       <form onSubmit={onSubmit} noValidate className="space-y-5">
         {error && <FormAlert tone="error">{error}</FormAlert>}
@@ -194,39 +187,25 @@ function SignupForm({ kind, invite }: { kind?: SignupKind; invite?: PendingInvit
           <FormAlert tone="success">
             You're creating an account from a {inviteLabel[invite.type]} invitation. Your role is set by the invitation.
           </FormAlert>
-        ) : (
-        <div>
-          <p className="mb-3 text-sm font-medium">What type of account are you creating?</p>
-          <div className="grid gap-3 sm:grid-cols-2">
-            {accountTypes.map(({ value, label, desc, Icon }) => {
-              const active = accountType === value;
-              return (
-                <button
-                  key={value}
-                  type="button"
-                  aria-pressed={active}
-                  onClick={() => setAccountType(value)}
-                  className={`rounded-2xl border p-4 text-left transition-all ${
-                    active
-                      ? "border-primary bg-accent/60 shadow-glow"
-                      : "border-border bg-surface/50 hover:border-primary/40"
-                  }`}
-                >
-                  <span
-                    className={`mb-3 inline-flex h-9 w-9 items-center justify-center rounded-lg ${
-                      active ? "bg-gradient-primary text-primary-foreground" : "bg-muted text-muted-foreground"
-                    }`}
-                  >
-                    <Icon className="h-4 w-4" />
-                  </span>
-                  <p className="text-sm font-semibold">{label}</p>
-                  <p className="mt-1 text-[0.8125rem] text-muted-foreground">{desc}</p>
-                </button>
-              );
-            })}
+        ) : kindInfo ? (
+          <div className="flex items-center justify-between gap-3 rounded-2xl border border-border bg-surface/50 p-3">
+            <div className="flex items-center gap-3">
+              <span className="inline-flex h-9 w-9 items-center justify-center rounded-lg bg-gradient-primary text-primary-foreground">
+                <kindInfo.Icon className="h-4 w-4" />
+              </span>
+              <div>
+                <p className="text-[0.8125rem] text-muted-foreground">Account type</p>
+                <p className="text-sm font-semibold">{kindInfo.label}</p>
+              </div>
+            </div>
+            <Link
+              to="/signup"
+              className="inline-flex items-center gap-1 text-sm font-medium text-primary hover:underline"
+            >
+              <ArrowLeft className="h-3.5 w-3.5" /> Change
+            </Link>
           </div>
-        </div>
-        )}
+        ) : null}
 
         <div className="grid gap-4 sm:grid-cols-2">
           <Field id="fullName" label="Full name" error={touched && !nameValid ? "Enter your full name." : undefined}>
