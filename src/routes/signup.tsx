@@ -1,7 +1,7 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { accountTypeForInvite, inviteLabel, readPendingInvite, type PendingInvite } from "@/lib/invite";
-import { ArrowRight, Building2, GraduationCap, Users, UserRound } from "lucide-react";
+import { ArrowLeft, ArrowRight, Briefcase, Building2, GraduationCap, Presentation, Users, UserRound } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { AuthShell } from "@/components/auth/AuthShell";
 import {
@@ -19,7 +19,22 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { friendlyAuthError } from "@/lib/auth-errors";
 import type { AccountType } from "@/hooks/use-auth";
 
+type SignupKind = "institution" | "tutoring_company" | "independent_tutor" | "parent" | "student" | "training_org";
+
+const kinds: { value: SignupKind; label: string; desc: string; Icon: typeof Users; accountType: AccountType }[] = [
+  { value: "institution", label: "Institution / School", desc: "Manage your institution, tutors and learners.", Icon: Building2, accountType: "organization" },
+  { value: "tutoring_company", label: "Tutoring Company", desc: "Run your tutoring business, tutors and clients.", Icon: Briefcase, accountType: "organization" },
+  { value: "independent_tutor", label: "Independent Tutor", desc: "Teach, manage classes and track learners.", Icon: Users, accountType: "tutor" },
+  { value: "parent", label: "Parent", desc: "Manage your child's learning and progress.", Icon: UserRound, accountType: "parent" },
+  { value: "student", label: "Student", desc: "Learn, practice and track your progress.", Icon: GraduationCap, accountType: "student" },
+  { value: "training_org", label: "Training Organization", desc: "Deliver professional training at scale.", Icon: Presentation, accountType: "organization" },
+];
+
+const kindValues = kinds.map((k) => k.value) as [SignupKind, ...SignupKind[]];
+
 export const Route = createFileRoute("/signup")({
+  validateSearch: (s: Record<string, unknown>): { type?: SignupKind } =>
+    typeof s.type === "string" && (kindValues as string[]).includes(s.type) ? { type: s.type as SignupKind } : {},
   component: SignupPage,
   head: () => ({
     meta: [
@@ -27,37 +42,99 @@ export const Route = createFileRoute("/signup")({
       { name: "description", content: "Create a LearnOS account as a student, parent, tutor or school and start building a smarter learning experience today." },
       { property: "og:title", content: "Create your LearnOS account" },
       { property: "og:description", content: "Sign up as a student, parent, tutor or organization on LearnOS." },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary" },
     ],
   }),
 });
 
-const accountTypes: { value: AccountType; label: string; desc: string; Icon: typeof Users }[] = [
-  { value: "student", label: "Student", desc: "Learn, practice and track your progress.", Icon: GraduationCap },
-  { value: "parent", label: "Parent", desc: "Manage your child's learning and progress.", Icon: UserRound },
-  { value: "tutor", label: "Tutor", desc: "Teach, manage classes and track learners.", Icon: Users },
-  { value: "organization", label: "School / Organization", desc: "Manage your institution, tutors and learners.", Icon: Building2 },
-];
+const signInFooter = (
+  <>
+    Already have an account?{" "}
+    <Link to="/login" className="font-medium text-primary hover:underline">
+      Sign In
+    </Link>
+  </>
+);
 
 function SignupPage() {
+  const { type } = Route.useSearch();
+  const [invite, setInvite] = useState<PendingInvite | null>(null);
+  const [checked, setChecked] = useState(false);
+
+  useEffect(() => {
+    setInvite(readPendingInvite());
+    setChecked(true);
+  }, []);
+
+  if (!checked) return <AuthShell wide title="Create your LearnOS account" footer={signInFooter}><div className="h-40" /></AuthShell>;
+  if (invite) return <SignupForm invite={invite} />;
+  if (!type) return <AccountSelect />;
+  return <SignupForm kind={type} />;
+}
+
+function AccountSelect() {
   const navigate = useNavigate();
-  const [accountType, setAccountType] = useState<AccountType>("student");
+  const [selected, setSelected] = useState<SignupKind | null>(null);
+  return (
+    <AuthShell
+      wide
+      title="Create your LearnOS account"
+      subtitle="First, tell us what type of account you're creating."
+      footer={signInFooter}
+    >
+      <div className="space-y-5">
+        <div className="grid gap-3 sm:grid-cols-2">
+          {kinds.map(({ value, label, desc, Icon }) => {
+            const active = selected === value;
+            return (
+              <button
+                key={value}
+                type="button"
+                aria-pressed={active}
+                onClick={() => setSelected(value)}
+                className={`rounded-2xl border p-4 text-left transition-all ${
+                  active ? "border-primary bg-accent/60 shadow-glow" : "border-border bg-surface/50 hover:border-primary/40"
+                }`}
+              >
+                <span
+                  className={`mb-3 inline-flex h-9 w-9 items-center justify-center rounded-lg ${
+                    active ? "bg-gradient-primary text-primary-foreground" : "bg-muted text-muted-foreground"
+                  }`}
+                >
+                  <Icon className="h-4 w-4" />
+                </span>
+                <p className="text-sm font-semibold">{label}</p>
+                <p className="mt-1 text-[0.8125rem] text-muted-foreground">{desc}</p>
+              </button>
+            );
+          })}
+        </div>
+        <button
+          type="button"
+          disabled={!selected}
+          onClick={() => selected && navigate({ to: "/signup", search: { type: selected } })}
+          className="inline-flex h-11 w-full items-center justify-center gap-2 rounded-xl bg-gradient-primary text-sm font-semibold text-primary-foreground shadow-glow transition-opacity hover:opacity-95 disabled:cursor-not-allowed disabled:opacity-60"
+        >
+          Continue <ArrowRight className="h-4 w-4" />
+        </button>
+      </div>
+    </AuthShell>
+  );
+}
+
+function SignupForm({ kind, invite }: { kind?: SignupKind; invite?: PendingInvite }) {
+  const navigate = useNavigate();
+  const kindInfo = kind ? kinds.find((k) => k.value === kind) : undefined;
+  const accountType: AccountType = invite ? accountTypeForInvite[invite.type] : (kindInfo?.accountType ?? "student");
   const [fullName, setFullName] = useState("");
-  const [email, setEmail] = useState("");
+  const [email, setEmail] = useState(invite?.email ?? "");
   const [password, setPassword] = useState("");
   const [confirm, setConfirm] = useState("");
   const [agreed, setAgreed] = useState(false);
   const [touched, setTouched] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const [invite, setInvite] = useState<PendingInvite | null>(null);
-
-  useEffect(() => {
-    const pending = readPendingInvite();
-    if (!pending) return;
-    setInvite(pending);
-    setAccountType(accountTypeForInvite[pending.type]);
-    if (pending.email) setEmail(pending.email);
-  }, []);
 
   const emailValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
   const nameValid = fullName.trim().length >= 2;
