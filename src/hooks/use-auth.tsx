@@ -39,6 +39,18 @@ export function destinationFor(profile: Profile | null): string {
   return `/onboarding/${profile.account_type}`;
 }
 
+/**
+ * Like destinationFor, but also restores an invitation saved on the account at sign-up,
+ * so it works when the verification link is opened on a different device/browser.
+ */
+export async function resolveDestination(profile: Profile | null): Promise<string> {
+  if (readPendingInvite()) return destinationFor(profile);
+  const { data } = await supabase.rpc("my_pending_invite");
+  const inv = data as { type: "admin" | "tutor" | "learner"; token: string } | null;
+  if (inv?.token) return invitePath(inv.type, inv.token);
+  return destinationFor(profile);
+}
+
 export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [session, setSession] = useState<Session | null>(null);
   const [profile, setProfile] = useState<Profile | null>(null);

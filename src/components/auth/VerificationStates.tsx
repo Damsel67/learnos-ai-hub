@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "@tanstack/react-router";
 import { ArrowRight, CheckCircle2, Loader2 } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
-import { destinationFor, type Profile } from "@/hooks/use-auth";
+import { resolveDestination, type Profile } from "@/hooks/use-auth";
 
 export function VerificationSuccess({
   title = "Email verification complete",
@@ -27,7 +27,8 @@ export function VerificationSuccess({
         .select("id, full_name, account_type, onboarding_completed")
         .eq("id", userId)
         .maybeSingle();
-      if (!cancelled) setDestination(destinationFor((profile as Profile | null) ?? null));
+      const dest = await resolveDestination((profile as Profile | null) ?? null);
+      if (!cancelled) setDestination(dest);
     })();
     return () => {
       cancelled = true;

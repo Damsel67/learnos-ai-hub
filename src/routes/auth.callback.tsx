@@ -5,7 +5,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { AuthShell } from "@/components/auth/AuthShell";
 import { FormAlert } from "@/components/auth/fields";
 import { VerificationSuccess } from "@/components/auth/VerificationStates";
-import { destinationFor, type Profile } from "@/hooks/use-auth";
+import { resolveDestination, type Profile } from "@/hooks/use-auth";
 
 type Search = { flow?: string };
 
@@ -73,7 +73,7 @@ function CallbackPage() {
         .eq("id", user.id)
         .maybeSingle();
       if (cancelled) return;
-      navigate({ to: destinationFor((profile as Profile | null) ?? null) as never, replace: true });
+      navigate({ to: (await resolveDestination((profile as Profile | null) ?? null)) as never, replace: true });
     })();
     return () => {
       cancelled = true;
