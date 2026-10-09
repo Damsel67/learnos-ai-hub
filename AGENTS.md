@@ -1,0 +1,3 @@
+- Invitations are restored from the account (invite_type/invite_token saved in sign-up metadata, read via `my_pending_invite`), not only from browser storage — so verification links work on any device.
+- Organisations are created only through the explicit setup step (`create_my_organization`); never auto-name them.
+- Customer type (6 sign-up choices) is stored in `profiles.customer_type`, separate from the 4 internal account types.
