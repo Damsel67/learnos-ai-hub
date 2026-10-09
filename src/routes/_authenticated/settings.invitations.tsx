@@ -109,7 +109,10 @@ function InvitationsPage() {
           <div className="mt-12 flex justify-center"><Loader2 className="h-6 w-6 animate-spin text-primary" /></div>
         ) : visible.length === 0 ? (
           <div className="mt-10 rounded-2xl border border-border bg-surface/50 p-6 text-sm text-muted-foreground">
-            Your account can't send invitations yet. Invitations are available to organisation administrators and parents.
+            Your account can't send invitations yet. Invitations are available to organisation administrators and parents.{" "}
+            <Link to="/onboarding/$role" params={{ role: "organization" }} className="font-medium text-primary hover:underline">
+              Organisation account? Set up your organisation first.
+            </Link>
           </div>
         ) : (
           <>

@@ -67,6 +67,14 @@ function DashboardPage() {
             {profile.account_type === "parent" ? "Learners → Invite Learner" : "Manage invitations"}
           </Link>
         )}
+        {profile?.account_type === "organization" && (
+          <Link
+            to="/settings/organization"
+            className="ml-3 mt-8 inline-flex items-center gap-2 rounded-xl border border-border bg-surface/50 px-4 py-2.5 text-sm font-medium hover:border-primary/40"
+          >
+            Organisation settings
+          </Link>
+        )}
       </main>
     </div>
   );
