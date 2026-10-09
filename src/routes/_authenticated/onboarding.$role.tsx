@@ -1,5 +1,7 @@
 import { createFileRoute, Link, useNavigate, useParams } from "@tanstack/react-router";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { Loader2 } from "lucide-react";
+import { OrgForm, orgTypeFromCustomer } from "@/components/org/OrgForm";
 import { ArrowRight, CheckCircle2 } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/hooks/use-auth";
@@ -33,6 +35,57 @@ function OnboardingPage() {
   const [error, setError] = useState<string | null>(null);
 
   const content = copy[role] ?? copy['student']!;
+  const { profile } = useAuth();
+  const needsOrgCheck = role === "organization" && profile?.account_type === "organization";
+  const [orgState, setOrgState] = useState<"checking" | "setup" | "ready">("checking");
+  const [customerType, setCustomerType] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (!needsOrgCheck || !user) {
+      setOrgState("ready");
+      return;
+    }
+    void (async () => {
+      const [{ data: org }, { data: p }] = await Promise.all([
+        supabase.rpc("my_organization"),
+        supabase.from("profiles").select("customer_type").eq("id", user.id).maybeSingle(),
+      ]);
+      setCustomerType(p?.customer_type ?? null);
+      const o = org as { setup_completed?: boolean } | null;
+      setOrgState(o?.setup_completed ? "ready" : "setup");
+    })();
+  }, [needsOrgCheck, user]);
+
+  if (needsOrgCheck && orgState === "checking") {
+    return (
+      <AuthShell title="Setting up your workspace">
+        <div className="flex justify-center py-6"><Loader2 className="h-6 w-6 animate-spin text-primary" /></div>
+      </AuthShell>
+    );
+  }
+
+  if (needsOrgCheck && orgState === "setup") {
+    return (
+      <AuthShell
+        title="Set up your organisation"
+        subtitle="Tell us a little about your organisation to get your LearnOS workspace ready."
+      >
+        <OrgForm
+          initial={{ name: "", org_type: orgTypeFromCustomer(customerType), country: "", website: "" }}
+          submitLabel="Create Organisation"
+          loadingLabel="Creating organisation..."
+          onSubmit={async (v) => {
+            const { error: rpcError } = await supabase.rpc("create_my_organization", {
+              _name: v.name, _type: v.org_type, _country: v.country, _website: v.website,
+            });
+            if (rpcError) return rpcError.message;
+            setOrgState("ready");
+            return null;
+          }}
+        />
+      </AuthShell>
+    );
+  }
 
   async function finish() {
     if (!user || loading) return;

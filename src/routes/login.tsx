@@ -7,7 +7,7 @@ import { Divider, Field, FormAlert, PasswordInput, SocialButtons, SubmitButton }
 import { Input } from "@/components/ui/input";
 import { Checkbox } from "@/components/ui/checkbox";
 import { friendlyAuthError } from "@/lib/auth-errors";
-import { destinationFor, type Profile } from "@/hooks/use-auth";
+import { resolveDestination, type Profile } from "@/hooks/use-auth";
 
 export const Route = createFileRoute("/login")({
   component: LoginPage,
@@ -61,7 +61,7 @@ function LoginPage() {
         .eq("id", data.user!.id)
         .maybeSingle();
       setNotice("Signed in successfully. Redirecting…");
-      navigate({ to: destinationFor((profile as Profile | null) ?? null) as never });
+      navigate({ to: (await resolveDestination((profile as Profile | null) ?? null)) as never });
     } catch {
       setError("Network error. Please check your connection and try again.");
       setLoading(false);

@@ -140,7 +140,8 @@ function SignupForm({ kind, invite }: { kind?: SignupKind; invite?: PendingInvit
   const nameValid = fullName.trim().length >= 2;
   const strong = isStrongPassword(password);
   const matches = password.length > 0 && password === confirm;
-  const valid = nameValid && emailValid && strong && matches && agreed;
+  const inviteEmailMismatch = !!invite?.email && email.trim().toLowerCase() !== invite.email.toLowerCase();
+  const valid = nameValid && emailValid && strong && matches && agreed && !inviteEmailMismatch;
 
   async function onSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -154,7 +155,12 @@ function SignupForm({ kind, invite }: { kind?: SignupKind; invite?: PendingInvit
         password,
         options: {
           emailRedirectTo: `${window.location.origin}/auth/callback?flow=verify`,
-          data: { full_name: fullName.trim(), account_type: accountType, ...(kind ? { signup_kind: kind } : {}) },
+          data: {
+            full_name: fullName.trim(),
+            account_type: accountType,
+            ...(kind ? { signup_kind: kind } : {}),
+            ...(invite ? { invite_type: invite.type, invite_token: invite.token } : {}),
+          },
         },
       });
       if (signUpError) {
@@ -225,6 +231,7 @@ function SignupForm({ kind, invite }: { kind?: SignupKind; invite?: PendingInvit
               autoComplete="email"
               placeholder="you@school.edu"
               value={email}
+              readOnly={!!invite?.email}
               onChange={(e) => setEmail(e.target.value)}
               aria-invalid={touched && !emailValid ? true : undefined}
             />
@@ -248,6 +255,12 @@ function SignupForm({ kind, invite }: { kind?: SignupKind; invite?: PendingInvit
             />
           </Field>
         </div>
+
+        {inviteEmailMismatch && (
+          <FormAlert tone="error">
+            This invitation was sent to a different email address. Please sign up using the email address that received this invitation.
+          </FormAlert>
+        )}
 
         <PasswordChecklist value={password} />
 
