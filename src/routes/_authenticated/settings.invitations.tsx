@@ -69,6 +69,14 @@ function InvitationsPage() {
 
   const visible = cards.filter((c) => (c.type === "learner" ? ctx?.can_invite_learner : ctx?.can_invite_staff));
 
+  // Quick actions from the dashboard open the matching invite form (?invite=tutor), if permitted.
+  useEffect(() => {
+    if (!ctx) return;
+    const want = new URLSearchParams(window.location.search).get("invite");
+    if (want && visible.some((c) => c.type === want)) setOpen(want as InviteType);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [ctx]);
+
   async function copy(r: Row) {
     if (!r.token) return;
     await navigator.clipboard.writeText(window.location.origin + invitePath(r.invitation_type, r.token));
