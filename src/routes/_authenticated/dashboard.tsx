@@ -62,7 +62,7 @@ function DashboardPage() {
           ))}
         </div>
 
-        {(profile?.account_type === "organization" || profile?.account_type === "parent") && (
+        {((profile?.account_type as string) === "organization" || profile?.account_type === "parent") && (
           <Link
             to="/settings/invitations"
             className="mt-8 inline-flex items-center gap-2 rounded-xl border border-border bg-surface/50 px-4 py-2.5 text-sm font-medium hover:border-primary/40"
@@ -70,7 +70,7 @@ function DashboardPage() {
             {profile.account_type === "parent" ? "Learners → Invite Learner" : "Manage invitations"}
           </Link>
         )}
-        {profile?.account_type === "organization" && (
+        {(profile?.account_type as string) === "organization" && (
           <Link
             to="/settings/organization"
             className="ml-3 mt-8 inline-flex items-center gap-2 rounded-xl border border-border bg-surface/50 px-4 py-2.5 text-sm font-medium hover:border-primary/40"
