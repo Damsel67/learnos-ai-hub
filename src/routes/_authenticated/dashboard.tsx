@@ -67,7 +67,7 @@ function DashboardPage() {
             to="/settings/invitations"
             className="mt-8 inline-flex items-center gap-2 rounded-xl border border-border bg-surface/50 px-4 py-2.5 text-sm font-medium hover:border-primary/40"
           >
-            {profile.account_type === "parent" ? "Learners → Invite Learner" : "Manage invitations"}
+            {profile?.account_type === "parent" ? "Learners → Invite Learner" : "Manage invitations"}
           </Link>
         )}
         {(profile?.account_type as string) === "organization" && (
