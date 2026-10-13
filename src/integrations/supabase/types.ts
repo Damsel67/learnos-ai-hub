@@ -10,7 +10,7 @@ export type Database = {
   // Allows to automatically instantiate createClient with right options
   // instead of createClient<Database, { PostgrestVersion: 'XX' }>(URL, KEY)
   __InternalSupabase: {
-    PostgrestVersion: "14.5"
+    PostgrestVersion: "14.15"
   }
   public: {
     Tables: {
@@ -200,6 +200,29 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
+      _is_last_active_admin: {
+        Args: {
+          _m: Database["public"]["Tables"]["organization_members"]["Row"]
+        }
+        Returns: boolean
+      }
+      _org_member_guard: {
+        Args: { _member_id: string }
+        Returns: {
+          created_at: string
+          id: string
+          organization_id: string
+          role: Database["public"]["Enums"]["org_role"]
+          status: string
+          user_id: string
+        }
+        SetofOptions: {
+          from: "*"
+          to: "organization_members"
+          isOneToOne: true
+          isSetofReturn: false
+        }
+      }
       accept_invitation: {
         Args: {
           _token: string
@@ -263,11 +286,36 @@ export type Database = {
           token: string
         }[]
       }
+      list_org_members: {
+        Args: { _org: string }
+        Returns: {
+          email: string
+          full_name: string
+          is_self: boolean
+          joined_at: string
+          member_id: string
+          role: Database["public"]["Enums"]["org_role"]
+          status: string
+          user_id: string
+        }[]
+      }
       my_invite_context: { Args: never; Returns: Json }
       my_organization: { Args: never; Returns: Json }
       my_pending_invite: { Args: never; Returns: Json }
+      remove_org_member: { Args: { _member_id: string }; Returns: undefined }
       resend_invitation: { Args: { _id: string }; Returns: Json }
       revoke_invitation: { Args: { _id: string }; Returns: undefined }
+      set_member_status: {
+        Args: { _member_id: string; _status: string }
+        Returns: undefined
+      }
+      update_member_role: {
+        Args: {
+          _member_id: string
+          _role: Database["public"]["Enums"]["org_role"]
+        }
+        Returns: undefined
+      }
       update_organization_profile: {
         Args: {
           _country: string
