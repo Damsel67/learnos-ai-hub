@@ -1,3 +1,4 @@
 - Invitations are restored from the account (invite_type/invite_token saved in sign-up metadata, read via `my_pending_invite`), not only from browser storage — so verification links work on any device.
 - Organisations are created only through the explicit setup step (`create_my_organization`); never auto-name them.
 - Customer type (6 sign-up choices) is stored in `profiles.customer_type`, separate from the 4 internal account types.
+- Org member management goes through security-definer RPCs (list_org_members, update_member_role, set_member_status, remove_org_member) that enforce admin, no-self-change and last-admin rules; organization_members has no direct write policies — keep it that way.
