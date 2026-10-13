@@ -20,6 +20,7 @@ import { Route as AuthenticatedDashboardRouteImport } from './routes/_authentica
 import { Route as AuthCallbackRouteImport } from './routes/auth.callback'
 import { Route as AuthenticatedOnboardingRoleRouteImport } from './routes/_authenticated/onboarding.$role'
 import { Route as AuthenticatedOrgSectionRouteImport } from './routes/_authenticated/org.$section'
+import { Route as AuthenticatedOrgUsersRouteImport } from './routes/_authenticated/org.users'
 import { Route as AuthenticatedSettingsInvitationsRouteImport } from './routes/_authenticated/settings.invitations'
 import { Route as AuthenticatedSettingsOrganizationRouteImport } from './routes/_authenticated/settings.organization'
 import { Route as InviteTypeTokenRouteImport } from './routes/invite.$type.$token'
@@ -79,6 +80,11 @@ const AuthenticatedOrgSectionRoute = AuthenticatedOrgSectionRouteImport.update({
   path: '/org/$section',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
+const AuthenticatedOrgUsersRoute = AuthenticatedOrgUsersRouteImport.update({
+  id: '/org/users',
+  path: '/org/users',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
 const AuthenticatedSettingsInvitationsRoute =
   AuthenticatedSettingsInvitationsRouteImport.update({
     id: '/settings/invitations',
@@ -108,6 +114,7 @@ export interface FileRoutesByFullPath {
   '/auth/callback': typeof AuthCallbackRoute
   '/onboarding/$role': typeof AuthenticatedOnboardingRoleRoute
   '/org/$section': typeof AuthenticatedOrgSectionRoute
+  '/org/users': typeof AuthenticatedOrgUsersRoute
   '/settings/invitations': typeof AuthenticatedSettingsInvitationsRoute
   '/settings/organization': typeof AuthenticatedSettingsOrganizationRoute
   '/invite/$type/$token': typeof InviteTypeTokenRoute
@@ -123,6 +130,7 @@ export interface FileRoutesByTo {
   '/auth/callback': typeof AuthCallbackRoute
   '/onboarding/$role': typeof AuthenticatedOnboardingRoleRoute
   '/org/$section': typeof AuthenticatedOrgSectionRoute
+  '/org/users': typeof AuthenticatedOrgUsersRoute
   '/settings/invitations': typeof AuthenticatedSettingsInvitationsRoute
   '/settings/organization': typeof AuthenticatedSettingsOrganizationRoute
   '/invite/$type/$token': typeof InviteTypeTokenRoute
@@ -140,6 +148,7 @@ export interface FileRoutesById {
   '/auth/callback': typeof AuthCallbackRoute
   '/_authenticated/onboarding/$role': typeof AuthenticatedOnboardingRoleRoute
   '/_authenticated/org/$section': typeof AuthenticatedOrgSectionRoute
+  '/_authenticated/org/users': typeof AuthenticatedOrgUsersRoute
   '/_authenticated/settings/invitations': typeof AuthenticatedSettingsInvitationsRoute
   '/_authenticated/settings/organization': typeof AuthenticatedSettingsOrganizationRoute
   '/invite/$type/$token': typeof InviteTypeTokenRoute
@@ -157,6 +166,7 @@ export interface FileRouteTypes {
     | '/auth/callback'
     | '/onboarding/$role'
     | '/org/$section'
+    | '/org/users'
     | '/settings/invitations'
     | '/settings/organization'
     | '/invite/$type/$token'
@@ -172,6 +182,7 @@ export interface FileRouteTypes {
     | '/auth/callback'
     | '/onboarding/$role'
     | '/org/$section'
+    | '/org/users'
     | '/settings/invitations'
     | '/settings/organization'
     | '/invite/$type/$token'
@@ -188,6 +199,7 @@ export interface FileRouteTypes {
     | '/auth/callback'
     | '/_authenticated/onboarding/$role'
     | '/_authenticated/org/$section'
+    | '/_authenticated/org/users'
     | '/_authenticated/settings/invitations'
     | '/_authenticated/settings/organization'
     | '/invite/$type/$token'
@@ -284,6 +296,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedOrgSectionRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/org/users': {
+      id: '/_authenticated/org/users'
+      path: '/org/users'
+      fullPath: '/org/users'
+      preLoaderRoute: typeof AuthenticatedOrgUsersRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/_authenticated/settings/invitations': {
       id: '/_authenticated/settings/invitations'
       path: '/settings/invitations'
@@ -312,6 +331,7 @@ interface AuthenticatedRouteRouteChildren {
   AuthenticatedDashboardRoute: typeof AuthenticatedDashboardRoute
   AuthenticatedOnboardingRoleRoute: typeof AuthenticatedOnboardingRoleRoute
   AuthenticatedOrgSectionRoute: typeof AuthenticatedOrgSectionRoute
+  AuthenticatedOrgUsersRoute: typeof AuthenticatedOrgUsersRoute
   AuthenticatedSettingsInvitationsRoute: typeof AuthenticatedSettingsInvitationsRoute
   AuthenticatedSettingsOrganizationRoute: typeof AuthenticatedSettingsOrganizationRoute
 }
@@ -320,6 +340,7 @@ const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedDashboardRoute: AuthenticatedDashboardRoute,
   AuthenticatedOnboardingRoleRoute: AuthenticatedOnboardingRoleRoute,
   AuthenticatedOrgSectionRoute: AuthenticatedOrgSectionRoute,
+  AuthenticatedOrgUsersRoute: AuthenticatedOrgUsersRoute,
   AuthenticatedSettingsInvitationsRoute: AuthenticatedSettingsInvitationsRoute,
   AuthenticatedSettingsOrganizationRoute:
     AuthenticatedSettingsOrganizationRoute,
